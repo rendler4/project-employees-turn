@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class EmpleadosController extends Controller
+class AsistenciasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-        //
-        return Inertia::render('Employees/ListEmployees');
+        //  return Inertia::render('Asistencias/RegisterAsistencias');
     }
 
     /**
@@ -26,7 +25,7 @@ class EmpleadosController extends Controller
     public function create()
     {
         //
-        return Inertia::render('Employees/RegisterEmployee');
+        return Inertia::render('Asistencias/RegisterAsistencias');
     }
 
     /**
