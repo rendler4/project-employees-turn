@@ -20,7 +20,7 @@ class Empleados extends Model
     ];
 
     public $rules = [
-        "cedula" => 'required|unique|numeric',
+        "cedula" => 'required|unique:empleados|numeric',
         "nombres" => 'required',
         "apellidos" => 'required',
         "edad" => 'required',
@@ -30,6 +30,7 @@ class Empleados extends Model
 
     public $messages = [
         'cedula.required' => 'Debe ingresar la cedula del empleado',
+        'cedula.unique' => 'Debe ingresar la cedula del empleado',
         'nombres.required' => 'Debe ingresar los nombres del empleado',
         'apellidos.required' => 'Debe ingresar los apellidos del empleado',
         'edad.required' => 'Debe ingresar una edad',

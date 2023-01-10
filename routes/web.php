@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('empleados', EmpleadosController::class);
 
+    Route::post('employee', [EmpleadosController::class, 'updateEmployee'])->name('employee.update');
+
+    Route::post('employee', [EmpleadosController::class, 'validarExistenciaEmpleado'])->name('employee.existencia');
+
     Route::resource('asistencias', \App\Http\Controllers\AsistenciasController::class);
 });
 

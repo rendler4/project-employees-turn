@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asistencia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class AsistenciasController extends Controller
@@ -37,6 +39,28 @@ class AsistenciasController extends Controller
     public function store(Request $request)
     {
         //
+
+        //Validación de reglas
+/*        $empleado = new Asistencia();
+        $validate = Validator::make($request->all(), $empleado->rules , $empleado->messages);
+
+        if($validate->fails()){
+            $response = response()-json(['success' => 'false', 'mensaje' => $validate->errors()->first()]);
+        }else{
+            Asistencia::create($request->all());
+            $response = response()->json(['success' => 'true', 'mensaje' => 'Empleado registrado existosamente.']);
+        }*/
+
+        $asistencia = new Asistencia();
+        $asistencia->cedula_empleado = $request->cedulaAsistente;
+        $asistencia->fecha_asistencia_entrada = $request->fecha_hora_ingreso;
+        $asistencia->fecha_asistencia_salida = $request->fecha_hora_salida;
+        $asistencia->save();
+        $response = response()->json(['success' => 'true', 'mensaje' => 'Empleado registrado existosamente.']);
+
+
+
+        return ($response);
     }
 
     /**

@@ -25,6 +25,10 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "jquery": "^3.6.3",
+        "popper.js": "^1.16.1",
+        "react-icons": "^4.7.1",
+        "reactstrap": "^9.1.5",
         "tw-elements": "^1.0.0-alpha13"
     }
 }

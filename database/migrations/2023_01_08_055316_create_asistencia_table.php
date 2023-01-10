@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('asistencia', function (Blueprint $table) {
             $table->id();
             $table->integer('cedula_empleado');
-            $table->date('fecha_asistencia_entrada');
-            $table->date('fecha_asistencia_salida');
+            $table->dateTime('fecha_asistencia_entrada');
+            $table->dateTime('fecha_asistencia_salida');
             $table->foreign('cedula_empleado')->references('cedula')->on('empleados');
         });
     }

@@ -20,6 +20,58 @@ export default function RegisterAsistencias(props) {
         })
     } )
 
+
+    let idEmpleado = document.getElementById('cedulaEmpleadoRegistroAsistencia');
+
+    const consultaDatosConfirmacionIdentidadEmpleado=(e)=>{
+
+        e.preventDefault()
+        const form = document.forms.namedItem("numeroCedulaEmpleado");
+        const formData = new FormData(form);
+
+        axios
+            .post(route('employee.existencia'),formData)
+            .then(response => {
+                return response;
+            })
+            .then(json => {
+                console.log(json)
+                if (json.data.success === true){
+                    document.getElementById('labelTextName').innerHTML = json.data.empleado.nombres  + ' ' +json.data.empleado.apellidos + ' ¿Estas seguro que desea confirmar su asistencia?';
+                    document.getElementById('labelTextName2').innerHTML = 'Indique por favor si se encuentra ingresando a su turno laboral o egresando';
+                }
+
+                if (json.data.success === false){
+                    document.getElementById('labelTextName').innerHTML = 'El número de documento ingresado no se encuentra registrado';
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        }
+
+
+    const submitRegisterAsistencia = (e) => {
+        e.preventDefault();
+        const form = document.forms.namedItem("registro_asistencia_empleado");
+        const formData = new FormData(form);
+        axios
+            .post(route('asistencias.store'),formData)
+            .then(response => {
+                return response;
+            })
+            .then(json => {
+                console.log(json)
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
+
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -37,7 +89,7 @@ export default function RegisterAsistencias(props) {
 
 
                             <div className="bg-slate-700 h-screen px-10 py-20 w-full">
-                                <form>
+                                <form id="numeroCedulaEmpleado" name="numeroCedulaEmpleado" onSubmit={consultaDatosConfirmacionIdentidadEmpleado}>
                                     <div className="max-w-xl">
                                         <div className="flex space-x-1 items-center mb-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -47,7 +99,7 @@ export default function RegisterAsistencias(props) {
                                         </div>
                                         <div className="flex space-x-4">
                                             <div className="flex rounded-md overflow-hidden w-full">
-                                                <input type="text" className="w-full rounded-md rounded-r-none" />
+                                                <input type="number" id='cedulaEmpleadoRegistroAsistencia' name='cedulaEmpleadoRegistroAsistencia' className="w-full rounded-md rounded-r-none" />
                                                 <button className="bg-indigo-600 text-white px-6 text-lg font-semibold py-4 rounded-r-md">Marcar!</button>
                                             </div>
                                             <button className="bg-white px-6 text-lg font-semibold py-4 rounded-md">Limpíar</button>
@@ -66,11 +118,9 @@ export default function RegisterAsistencias(props) {
                                                       d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                             </svg>
                                             <div className="flex flex-col ml-3">
-                                                <div className="font-medium leading-none text-gray-100">Delete Your
-                                                    Acccount ?
+                                                <div  className="font-medium leading-none text-gray-100"><p id='labelTextName'></p>
                                                 </div>
-                                                <p className="text-sm text-gray-500 leading-none mt-1">By deleting your
-                                                    account you will lose your all data
+                                                <p id='labelTextName2' className="text-sm text-gray-500 leading-none mt-1">
                                                 </p>
                                             </div>
                                         </div>
